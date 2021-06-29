@@ -1,12 +1,15 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-interface NetworkItemComponentProps {
+type NetworkItemComponentProps = {
   title: string;
   active?: boolean;
-}
+};
 
-const NetworkItemComponent = ({ title, active }: NetworkItemComponentProps) => (
+const NetworkItemComponent: React.FC<NetworkItemComponentProps> = ({
+  title,
+  active,
+}) => (
   <li>
     <Title active={active}>{title}</Title>
     <AddToFavorite>Like</AddToFavorite>
