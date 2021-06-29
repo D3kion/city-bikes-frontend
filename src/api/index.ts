@@ -1,11 +1,11 @@
+const BASE_URL = 'https://api.citybik.es/v2';
+
 const API = {
-  fetchNetworks() {
-    return fetch(
-      'https://api.citybik.es/v2/networks?fields=id,company,location'
-    );
+  getNetworks() {
+    return fetch(`${BASE_URL}/networks?fields=id,company,location`);
   },
-  fetchStations() {
-    //
+  getStations(networkId: string) {
+    return fetch(`${BASE_URL}/networks/${networkId}`);
   },
 };
 

@@ -11,7 +11,6 @@ type NetworkListComponentProps = {
   isPending: boolean;
   error?: string | null;
   onTitleClick: (id: string) => void;
-  onLikeClick: (id: string) => void;
 };
 
 const NetworkListComponent = ({
@@ -20,7 +19,6 @@ const NetworkListComponent = ({
   isPending,
   error,
   onTitleClick,
-  onLikeClick,
 }: NetworkListComponentProps) => (
   <Container>
     <h2>Networks</h2>
@@ -36,7 +34,6 @@ const NetworkListComponent = ({
             location={x.location}
             active={activeItem === x.id}
             onTitleClick={onTitleClick}
-            onLikeClick={onLikeClick}
           />
         ))}
       </ListContainer>

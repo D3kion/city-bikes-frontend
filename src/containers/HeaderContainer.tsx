@@ -5,13 +5,20 @@ import { AppState } from '../store/rootReducer';
 import { HeaderComponent } from '../components';
 
 const HeaderContainer = () => {
-  const state = useSelector((state: AppState) => state.network);
-  const activeNetwork = state.networks.find(
-    (x) => x.id === state.activeItem
+  const { network, station } = useSelector((state: AppState) => ({
+    network: state.network,
+    station: state.station,
+  }));
+  const activeNetwork = network.networks.find(
+    (x) => x.id === network.activeItem
   )?.title;
+  const stationsCount = station.stations.length;
 
   return (
-    <HeaderComponent activeNetwork={activeNetwork} networkStations={123} />
+    <HeaderComponent
+      activeNetwork={activeNetwork}
+      networkStations={stationsCount}
+    />
   );
 };
 

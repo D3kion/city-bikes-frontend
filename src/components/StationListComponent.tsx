@@ -1,13 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StationsListComponent = () => (
+import { IStation } from '../store/station/station.types';
+
+import StationItemComponent from './StationItemComponent';
+
+type StationListComponentProps = {
+  items: IStation[];
+  activeNetwork?: string;
+  isPending: boolean;
+  error?: string | null;
+  onLikeClick: (id: string) => void;
+};
+
+const StationsListComponent = ({
+  items,
+  activeNetwork,
+  isPending,
+  error,
+  onLikeClick,
+}: StationListComponentProps) => (
   <Container>
-    <h2>Stations of network X</h2>
-    <ListContainer>
-      <li>Station 1</li>
-      <li>Station 2</li>
-    </ListContainer>
+    {activeNetwork ? (
+      <h2>Stations of network "{activeNetwork}"</h2>
+    ) : (
+      <h2>Please, choose a network!</h2>
+    )}
+    {isPending && <span>Loading...</span>}
+    {error && <span>Error: {error}</span>}
+    {activeNetwork && !(isPending || error) && (
+      <ListContainer>
+        {items.map((x) => (
+          <StationItemComponent
+            key={x.id}
+            id={x.id}
+            name={x.name}
+            onLikeClick={onLikeClick}
+          />
+        ))}
+      </ListContainer>
+    )}
   </Container>
 );
 

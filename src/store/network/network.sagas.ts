@@ -8,12 +8,14 @@ import {
   fetchNetworkFailure,
   fetchNetworkSuccess,
   setActiveNetwork,
+  SET_ACTIVE_NETWORK,
 } from './network.actions';
 import { convertNetworkData } from './network.convert';
+import { fetchStationRequest } from '../station/station.actions';
 
 function* fetchNetworkSaga() {
   try {
-    const response: Response = yield call(API.fetchNetworks);
+    const response: Response = yield call(API.getNetworks);
     const rawData: INetworkData = yield response.json();
     const data: INetwork[] = yield call(convertNetworkData, rawData);
 
@@ -32,8 +34,15 @@ function* fetchNetworkSaga() {
   }
 }
 
+function* setActiveSaga() {
+  yield put(fetchStationRequest());
+}
+
 function* networkSaga() {
-  yield all([takeLatest(FETCH_NETWORK_REQUEST, fetchNetworkSaga)]);
+  yield all([
+    takeLatest(FETCH_NETWORK_REQUEST, fetchNetworkSaga),
+    takeLatest(SET_ACTIVE_NETWORK, setActiveSaga),
+  ]);
 }
 
 export default networkSaga;

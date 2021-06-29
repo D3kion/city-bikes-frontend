@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { StationListComponent } from './components';
-import { HeaderContainer, NetworkListContainer } from './containers';
+import {
+  HeaderContainer,
+  NetworkListContainer,
+  StationListContainer,
+} from './containers';
 
 function App() {
   return (
@@ -10,7 +13,7 @@ function App() {
       <HeaderContainer />
       <Content>
         <NetworkListContainer />
-        <StationListComponent />
+        <StationListContainer />
       </Content>
     </div>
   );

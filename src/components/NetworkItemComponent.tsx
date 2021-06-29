@@ -7,7 +7,6 @@ type NetworkItemComponentProps = {
   location: string;
   active?: boolean;
   onTitleClick: (id: string) => void;
-  onLikeClick: (id: string) => void;
 };
 
 const NetworkItemComponent: React.FC<NetworkItemComponentProps> = ({
@@ -16,19 +15,15 @@ const NetworkItemComponent: React.FC<NetworkItemComponentProps> = ({
   location,
   active,
   onTitleClick,
-  onLikeClick,
 }) => (
-  <li>
-    <Title onClick={() => onTitleClick(id)} active={active}>
-      {title} ({location})
-    </Title>
-    <AddToFavorite onClick={() => onLikeClick(id)}>Like</AddToFavorite>
-  </li>
+  <Title onClick={() => onTitleClick(id)} active={active}>
+    {title} ({location})
+  </Title>
 );
 
 export default NetworkItemComponent;
 
-const Title = styled.span<{ active?: boolean }>`
+const Title = styled.li<{ active?: boolean }>`
   cursor: pointer;
 
   :hover {
@@ -39,11 +34,4 @@ const Title = styled.span<{ active?: boolean }>`
     css`
       font-weight: 600;
     `}
-`;
-
-const AddToFavorite = styled.span`
-  margin-left: 1.5em;
-
-  text-decoration: underline;
-  cursor: pointer;
 `;

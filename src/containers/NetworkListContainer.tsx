@@ -19,9 +19,6 @@ const NetworkListContainer = () => {
   const handleTitleClick = (id: string) => {
     dispatch(setActiveNetwork({ activeItem: id }));
   };
-  const handleLikeClick = (id: string) => {
-    // TODO
-  };
 
   return (
     <NetworkListComponent
@@ -30,7 +27,6 @@ const NetworkListContainer = () => {
       isPending={state.pending}
       error={state.error}
       onTitleClick={handleTitleClick}
-      onLikeClick={handleLikeClick}
     />
   );
 };
