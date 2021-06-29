@@ -1,29 +1,28 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 
-import { INetwork } from './network.types';
+import API from '../../api';
+
+import { INetwork, INetworkData } from './network.types';
 import {
   FETCH_NETWORK_REQUEST,
   fetchNetworkFailure,
   fetchNetworkSuccess,
+  setActiveNetwork,
 } from './network.actions';
-import API from '../../api';
 import { convertNetworkData } from './network.convert';
 
-/*
-  Worker Saga: Fired on FETCH_TODO_REQUEST action
-*/
-function* fetchTodoSaga() {
+function* fetchNetworkSaga() {
   try {
     const response: Response = yield call(API.fetchNetworks);
-    debugger;
-    // const data = yield call(convertNetworkData, response.json());
-    // convertNetworkData(response.json());
+    const rawData: INetworkData = yield response.json();
+    const data: INetwork[] = yield call(convertNetworkData, rawData);
 
     yield put(
       fetchNetworkSuccess({
-        networks: response.data,
+        networks: data,
       })
     );
+    yield put(setActiveNetwork({ activeItem: data[0].id }));
   } catch (e) {
     yield put(
       fetchNetworkFailure({
@@ -33,12 +32,8 @@ function* fetchTodoSaga() {
   }
 }
 
-/*
-  Starts worker saga on latest dispatched `FETCH_TODO_REQUEST` action.
-  Allows concurrent increments.
-*/
-function* todoSaga() {
-  yield all([takeLatest(FETCH_NETWORK_REQUEST, fetchTodoSaga)]);
+function* networkSaga() {
+  yield all([takeLatest(FETCH_NETWORK_REQUEST, fetchNetworkSaga)]);
 }
 
-export default todoSaga;
+export default networkSaga;

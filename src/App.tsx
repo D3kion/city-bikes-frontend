@@ -1,19 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {
-  HeaderComponent,
-  NetworksListComponent,
-  StationsListComponent,
-} from './components';
+import { StationListComponent } from './components';
+import { HeaderContainer, NetworkListContainer } from './containers';
 
 function App() {
   return (
     <div>
-      <HeaderComponent />
+      <HeaderContainer />
       <Content>
-        <NetworksListComponent />
-        <StationsListComponent />
+        <NetworkListContainer />
+        <StationListComponent />
       </Content>
     </div>
   );

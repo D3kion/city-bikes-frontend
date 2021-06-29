@@ -2,23 +2,30 @@ import {
   FETCH_NETWORK_REQUEST,
   FETCH_NETWORK_SUCCESS,
   FETCH_NETWORK_FAILURE,
+  SET_ACTIVE_NETWORK,
 } from './network.actions';
 
 export interface INetwork {
   id: string;
   title: string;
+  location: string;
 }
 
 export interface INetworkData {
   networks: {
     id: string;
     company: string[];
+    location: {
+      city: string;
+      country: string;
+    };
   }[];
 }
 
 export interface NetworkState {
-  pending: boolean;
   networks: INetwork[];
+  activeItem: string | null;
+  pending: boolean;
   error: string | null;
 }
 
@@ -28,6 +35,10 @@ export interface FetchNetworkSuccessPayload {
 
 export interface FetchNetworkFailurePayload {
   error: string;
+}
+
+export interface SetActiveNetworkPayload {
+  activeItem: string;
 }
 
 export interface FetchNetworkRequest {
@@ -44,7 +55,13 @@ export type FetchNetworkFailure = {
   payload: FetchNetworkFailurePayload;
 };
 
+export type SetActiveNetwork = {
+  type: typeof SET_ACTIVE_NETWORK;
+  payload: SetActiveNetworkPayload;
+};
+
 export type NetworkActions =
   | FetchNetworkRequest
   | FetchNetworkSuccess
-  | FetchNetworkFailure;
+  | FetchNetworkFailure
+  | SetActiveNetwork;

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-// import todoReducer from './todo/reducer';
+import networkReducer from './network/network.reducer';
 
 const rootReducer = combineReducers({
-  // todo: todoReducer,
+  network: networkReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
