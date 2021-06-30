@@ -2,6 +2,8 @@ import {
   FETCH_STATION_REQUEST,
   FETCH_STATION_SUCCESS,
   FETCH_STATION_FAILURE,
+  ADD_STATION_TO_FAVORITE,
+  REMOVE_STATION_FROM_FAVORITE,
 } from './station.actions';
 
 export interface IStation {
@@ -22,8 +24,13 @@ export interface IStationData {
   };
 }
 
+export interface IFavorite {
+  [network: string]: string[]; // network -> stations ids
+}
+
 export interface StationState {
   stations: IStation[];
+  favorite: IFavorite;
   pending: boolean;
   error: string | null;
 }
@@ -34,6 +41,16 @@ export interface FetchStationSuccessPayload {
 
 export interface FetchStationFailurePayload {
   error: string;
+}
+
+export interface AddStationToFavoritePayload {
+  network: string;
+  id: string;
+}
+
+export interface RemoveStationFromFavoritePayload {
+  network: string;
+  id: string;
 }
 
 export interface FetchStationRequest {
@@ -50,7 +67,19 @@ export type FetchStationFailure = {
   payload: FetchStationFailurePayload;
 };
 
+export type AddStationToFavorite = {
+  type: typeof ADD_STATION_TO_FAVORITE;
+  payload: AddStationToFavoritePayload;
+};
+
+export type RemoveStationFromFavorite = {
+  type: typeof REMOVE_STATION_FROM_FAVORITE;
+  payload: RemoveStationFromFavoritePayload;
+};
+
 export type StationActions =
   | FetchStationRequest
   | FetchStationSuccess
-  | FetchStationFailure;
+  | FetchStationFailure
+  | AddStationToFavorite
+  | RemoveStationFromFavorite;

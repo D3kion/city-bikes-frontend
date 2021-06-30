@@ -7,14 +7,16 @@ import StationItemComponent from './StationItemComponent';
 
 type StationListComponentProps = {
   items: IStation[];
+  favorite: string[] | null;
   activeNetwork?: string;
   isPending: boolean;
   error?: string | null;
-  onLikeClick: (id: string) => void;
+  onLikeClick: (id: string, remove: boolean) => void;
 };
 
 const StationsListComponent = ({
   items,
+  favorite,
   activeNetwork,
   isPending,
   error,
@@ -35,6 +37,7 @@ const StationsListComponent = ({
             key={x.id}
             id={x.id}
             name={x.name}
+            isFavorite={favorite?.includes(x.id)}
             onLikeClick={onLikeClick}
           />
         ))}

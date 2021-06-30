@@ -18,6 +18,7 @@ const HeaderContainer = () => {
     <HeaderComponent
       activeNetwork={activeNetwork}
       networkStations={stationsCount}
+      favoriteStations={station.favorite[network.activeItem || '']?.length || 0}
     />
   );
 };

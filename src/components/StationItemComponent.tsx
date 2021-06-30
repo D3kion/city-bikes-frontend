@@ -4,17 +4,21 @@ import styled from 'styled-components';
 type StationItemComponentProps = {
   id: string;
   name: string;
-  onLikeClick: (id: string) => void;
+  isFavorite?: boolean;
+  onLikeClick: (id: string, remove: boolean) => void;
 };
 
 const StationItemComponent: React.FC<StationItemComponentProps> = ({
   id,
   name,
+  isFavorite,
   onLikeClick,
 }) => (
   <li>
     <span>{name}</span>
-    <AddToFavorite onClick={() => onLikeClick(id)}>Like</AddToFavorite>
+    <AddToFavorite onClick={() => onLikeClick(id, !!isFavorite)}>
+      {isFavorite ? 'Dislike' : 'Like'}
+    </AddToFavorite>
   </li>
 );
 

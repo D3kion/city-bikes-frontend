@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AppState } from '../store/rootReducer';
 import { StationListComponent } from '../components';
+import {
+  addStationToFavorite,
+  removeStationFromFavorite,
+} from '../store/station/station.actions';
 
 const StationListContainer = () => {
   const dispatch = useDispatch();
@@ -14,13 +18,25 @@ const StationListContainer = () => {
     (x) => x.id === network.activeItem
   )?.title;
 
-  const handleLikeClick = (id: string) => {
-    //
+  const handleLikeClick = (id: string, remove: boolean) => {
+    if (!network.activeItem) return;
+
+    const payload = { network: network.activeItem, id };
+
+    if (remove) {
+      dispatch(removeStationFromFavorite(payload));
+      return;
+    }
+
+    dispatch(addStationToFavorite(payload));
   };
 
   return (
     <StationListComponent
       items={station.stations}
+      favorite={
+        network.activeItem ? station.favorite[network.activeItem] : null
+      }
       activeNetwork={activeNetwork}
       isPending={station.pending}
       error={station.error}
