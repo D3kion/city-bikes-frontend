@@ -12,7 +12,7 @@ const store = createStore(
   rootReducer,
   {
     station: {
-      favorite: persistedState,
+      favorite: persistedState || [],
       stations: [],
       pending: false,
       error: null,
