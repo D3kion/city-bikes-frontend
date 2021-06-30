@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import tw from 'twin.macro';
 
 type HeaderComponentProps = {
   activeNetwork?: string;
@@ -14,14 +14,16 @@ const HeaderComponent = ({
 }: HeaderComponentProps) => (
   <Container>
     {!activeNetwork ? (
-      <h1>Loading...</h1>
+      <Title>Loading...</Title>
     ) : (
       <>
-        <h1>
+        <Title>
           {activeNetwork}{' '}
           <StationsCount>({networkStations} stations)</StationsCount>
-        </h1>
-        <h2>Favorite stations in this network: {favoriteStations} stations</h2>
+        </Title>
+        <FavoriteCounter>
+          Favorite stations in this network: {favoriteStations} stations
+        </FavoriteCounter>
       </>
     )}
   </Container>
@@ -29,15 +31,20 @@ const HeaderComponent = ({
 
 export default HeaderComponent;
 
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 0 1em;
+const Container = tw.div`
+  flex justify-between items-center
+  px-8 py-4
+  bg-blue-900 text-indigo-50
 `;
 
-const StationsCount = styled.span`
-  font-size: 0.8em;
-  font-weight: 400;
+const Title = tw.div`
+  text-2xl font-bold
+`;
+
+const StationsCount = tw.span`
+  text-sm font-medium
+`;
+
+const FavoriteCounter = tw.span`
+  text-xl font-medium
 `;

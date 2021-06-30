@@ -1,8 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
+import tw from 'twin.macro';
 
 import { IStation } from '../store/station/station.types';
 
+import { Card, Spinner } from './ui';
 import StationItemComponent from './StationItemComponent';
 
 type StationListComponentProps = {
@@ -23,12 +24,10 @@ const StationsListComponent = ({
   onLikeClick,
 }: StationListComponentProps) => (
   <Container>
-    {activeNetwork ? (
-      <h2>Stations of network "{activeNetwork}"</h2>
-    ) : (
-      <h2>Please, choose a network!</h2>
+    {activeNetwork && <Title>Stations of network "{activeNetwork}"</Title>}
+    {(isPending || !activeNetwork) && (
+      <Spinner tw="place-self-center mt-2 text-blue-900" />
     )}
-    {isPending && <span>Loading...</span>}
     {error && <span>Error: {error}</span>}
     {activeNetwork && !(isPending || error) && (
       <ListContainer>
@@ -48,12 +47,16 @@ const StationsListComponent = ({
 
 export default StationsListComponent;
 
-const Container = styled.div`
-  width: 100%;
-  padding: 0 1em;
+const Container = tw(Card)`
+  flex flex-col gap-3
+  px-0
 `;
 
-const ListContainer = styled.ul`
-  display: grid;
-  gap: 0.5em;
+const Title = tw.span`
+  text-2xl font-medium
+  place-self-center
+`;
+
+const ListContainer = tw.div`
+  grid overflow-auto
 `;

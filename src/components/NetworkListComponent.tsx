@@ -1,8 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
+import tw from 'twin.macro';
 
 import { INetwork } from '../store/network/network.types';
 
+import { Card, Spinner } from './ui';
 import NetworkItemComponent from './NetworkItemComponent';
 
 type NetworkListComponentProps = {
@@ -21,8 +22,8 @@ const NetworkListComponent = ({
   onTitleClick,
 }: NetworkListComponentProps) => (
   <Container>
-    <h2>Networks</h2>
-    {isPending && <span>Loading...</span>}
+    <Title>Networks</Title>
+    {isPending && <Spinner tw="place-self-center mt-2 text-blue-900" />}
     {error && <span>Error: {error}</span>}
     {!(isPending || error) && (
       <ListContainer>
@@ -43,12 +44,16 @@ const NetworkListComponent = ({
 
 export default NetworkListComponent;
 
-const Container = styled.div`
-  width: 100%;
-  padding: 0 1em;
+const Container = tw(Card)`
+  flex flex-col gap-3
+  px-0
 `;
 
-const ListContainer = styled.ul`
-  display: grid;
-  gap: 0.5em;
+const Title = tw.span`
+  text-2xl font-medium
+  place-self-center
+`;
+
+const ListContainer = tw.div`
+  grid overflow-auto
 `;
